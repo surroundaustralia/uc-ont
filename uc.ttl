@@ -1,0 +1,259 @@
+# baseURI: https://data.surroundaustralia.com/def/uc
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix md: <https://data.surroundaustralia.com/def/md/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sdo: <https://schema.org/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix uc: <https://data.surroundaustralia.com/def/uc/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+rdfs:member
+  a owl:ObjectProperty ;
+  rdfs:domain uc:StepFlow ;
+  rdfs:range uc:Step ;
+  skos:definition "A member is an element within a List"@en ;
+  skos:prefLabel "member"@en ;
+.
+<https://data.surroundaustralia.com/def/uc>
+  a owl:Ontology ;
+  dcterms:contributor <https://orcid.org/0000-0003-3932-5614> ;
+  dcterms:created "2021-07-31"^^xsd:date ;
+  dcterms:creator <https://orcid.org/0000-0002-8742-7730> ;
+  dcterms:license <https://data.surroundaustralia.com/surround-license> ;
+  dcterms:modified "2021-10-28"^^xsd:date ;
+  dcterms:provenance "Most UML details taken from Pilone & Pitman (2005) 'UML 2.0 in a nutshell'. O'Reilley."@en ;
+  skos:definition "An OWL representation of UML's Use Case model."@en ;
+  skos:prefLabel "Use Case Ontology"@en ;
+.
+uc:Actor
+  a owl:Class ;
+  rdfs:subClassOf prov:Agent ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  skos:definition "Actors are Agents external to the system provisioning the fuctionality of the Use Case. Actors are able to make decisions but need not be human: they might be a person, a company or organization, a computer program, or a computer system - hardware, software, or both.  "@en ;
+  skos:prefLabel "Actor"@en ;
+.
+uc:DefinedTerm
+  a owl:Class ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  skos:definition "A word or phrase in the description of a Use Case element that has been assigned an identity and definitional metadata."@en ;
+  skos:prefLabel "Defined Term"@en ;
+.
+uc:PostCondition
+  a owl:Class ;
+  rdfs:subClassOf uc:Requirement ;
+  skos:definition "Post-conditions are Requirements that are necissary after the execution of a Use Case for a successful outcome.  Note that 'necissary' does not meen 'sufficient'."@en ;
+  skos:prefLabel "Post-condition"@en ;
+.
+uc:PreCondition
+  a owl:Class ;
+  rdfs:subClassOf uc:Requirement ;
+  skos:definition "Pre-conditions are Requirements that are necissary before the execution of a Use Case for a successful outcome.  Note that 'necissary' does not meen 'sufficient'."@en ;
+  skos:prefLabel "Pre-condition"@en ;
+.
+uc:Requirement
+  a owl:Class ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  skos:definition "Requirements are situations necissary for, or as a result of, the successful execution of a Use Case.   Requirements are usually realised as either Pre-conditions or Post-conditions of a Use Cases, i.e. Requirements necissary respectively before or after Use Case execution."@en ;
+  skos:prefLabel "Requirement"@en ;
+.
+uc:Step
+  a owl:Class ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  skos:definition "A single action within a Step Flow sequence"@en ;
+  skos:prefLabel "Step"@en ;
+.
+uc:StepFlow
+  a owl:Class ;
+  rdfs:label "Step Flow" ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  skos:definition "A Step Flow is a List of Steps.  The list is ordered."@en ;
+  skos:prefLabel "Step Flow"@en ;
+.
+uc:System
+  a owl:Class ;
+  rdfs:subClassOf prov:Agent ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  skos:definition "Systems are the things that provision capabilities for the realisation of Use Cases"@en ;
+  skos:prefLabel "System"@en ;
+.
+uc:SystemActor
+  a owl:Class ;
+  rdfs:subClassOf uc:Actor ;
+  skos:definition "System Actors are Actors that are some forms of computer - hardware, software or both."@en ;
+  skos:prefLabel "System Actor"@en ;
+.
+uc:Trigger
+  a owl:Class ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  skos:definition "A Trigger is an Action that initiates a Use Case or Step Flow"@en ;
+  skos:prefLabel "Trigger"@en ;
+.
+uc:UseCase
+  a owl:Class ;
+  rdfs:subClassOf uc:UseCaseModelElement ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:onProperty skos:hasGoal ;
+      owl:someValuesFrom rdfs:Literal ;
+    ] ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:onProperty uc:hasAlternateFlow ;
+      owl:someValuesFrom owl:Thing ;
+    ] ;
+  rdfs:subClassOf [
+      a owl:Restriction ;
+      owl:onProperty uc:hasMainFlow ;
+      owl:someValuesFrom owl:Thing ;
+    ] ;
+  skos:definition "A distinct, named, piece of functionality for a system"@en ;
+  skos:prefLabel "Use Case"@en ;
+.
+uc:UseCaseModelElement
+  a owl:Class ;
+  rdfs:subClassOf owl:Thing ;
+  rdfs:subClassOf prov:Entity ;
+  skos:definition "A generic class for all elements - specialised classes - within the Use Case model that this ontology implements"@en ;
+  skos:prefLabel "Use Case Model Element"@en ;
+.
+uc:extends
+  a owl:ObjectProperty ;
+  rdfs:domain uc:UseCase ;
+  rdfs:range uc:UseCase ;
+  skos:definition "A Use Case extends another Use Case by adding additional functionality of specified conditions are met"@en ;
+  skos:prefLabel "extends"@en ;
+.
+uc:hasAlternateFlow
+  a owl:ObjectProperty ;
+  rdfs:range uc:StepFlow ;
+  skos:definition "The alternate flow is a set of Steps carried out during the execution of a Use Case under non-standard conditions.  Initialisation of alternate flow steps requires a Trigger."@en ;
+  skos:prefLabel "has alternate flow"@en ;
+.
+uc:hasAlternateFlowStep
+  a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf skos:note ;
+  skos:definition "A textual description of one of the non mainline sub actions, Spets, required to perform this Use Case"@en ;
+  skos:prefLabel "has alternate flow step"@en ;
+.
+uc:hasBibliographicReference
+  a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf skos:note ;
+  skos:definition "A note used to describe the origin of the Use Case ontology element."@en ;
+  skos:prefLabel "has bibliographic reference"@en ;
+.
+uc:hasDefinedTerm
+  a owl:ObjectProperty ;
+  rdfs:range skos:Concept ;
+  skos:definition "Text associated with the Subject has the Object as a word or phrase with special meaning within it."@en ;
+  skos:prefLabel "has defined term"@en ;
+.
+uc:hasException
+  a owl:ObjectProperty ;
+  rdfs:domain uc:UseCase ;
+  rdfs:range xsd:string ;
+  skos:definition "Result negative: An Exception is anything that leads to NOT achieving the use case’s goal."@en ;
+  skos:prefLabel "has exception"@en ;
+.
+uc:hasFlowStep
+  a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf skos:note ;
+  skos:definition "A textual description of one of the mainline sub actions, Spets, required to perform this Use Case"@en ;
+  skos:prefLabel "has flow step"@en ;
+.
+uc:hasGoal
+  a owl:DatatypeProperty ;
+  rdfs:range xsd:string ;
+  rdfs:subPropertyOf skos:note ;
+  skos:definition "A Use Case should state the intention of its execultion in a statement seperately to a general description of the Use Case."@en ;
+  skos:prefLabel "goal"@en ;
+.
+uc:hasMainFlow
+  a owl:ObjectProperty ;
+  rdfs:range uc:StepFlow ;
+  skos:definition "The main flow of Steps is the set of steps carried out during the execution of the Use Case under normal conditions"@en ;
+  skos:prefLabel "has main flow"@en ;
+.
+uc:hasPostcondition
+  a owl:ObjectProperty ;
+  rdfs:subPropertyOf uc:hasRequirement ;
+  skos:definition "A Use Case may have Postconditions associated with it."@en ;
+  skos:prefLabel "has postcondition"@en ;
+.
+uc:hasPrecondition
+  a owl:ObjectProperty ;
+  rdfs:subPropertyOf uc:hasRequirement ;
+  skos:definition "A Use Case may have Preconditions associated with it."@en ;
+  skos:prefLabel "has precondition"@en ;
+.
+uc:hasRequirement
+  a owl:ObjectProperty ;
+  rdfs:domain uc:UseCase ;
+  rdfs:range uc:Requirement ;
+  skos:definition "A Use Case may have Requirements associated with it."@en ;
+  skos:prefLabel "has requirement"@en ;
+.
+uc:includes
+  a owl:ObjectProperty ;
+  rdfs:domain uc:UseCase ;
+  rdfs:range uc:UseCase ;
+  skos:definition "A Use Case includes another Use Case if functionality required by multiple Use Cases has been characterised into a shared Use Case.  Typically a Use Case included by others is not complete on its own."@en ;
+  skos:prefLabel "includes"@en ;
+.
+uc:isAssociatedWith
+  a owl:ObjectProperty ;
+  a owl:SymmetricProperty ;
+  rdfs:domain uc:Actor ;
+  rdfs:range uc:UseCase ;
+  skos:definition "An Actor may be linked to any number of Use Cases"@en ;
+  skos:prefLabel "is associated with"@en ;
+.
+uc:isProvisionedBy
+  a owl:ObjectProperty ;
+  rdfs:domain uc:UseCase ;
+  rdfs:range uc:System ;
+  skos:definition "Use Cases can be described as having their execution enabled by a System: the system provisions the Use Case"@en ;
+  skos:prefLabel "is provisioned by"@en ;
+.
+uc:isTriggerFor
+  a owl:ObjectProperty ;
+  rdfs:domain uc:Trigger ;
+  rdfs:range uc:StepFlow ;
+  rdfs:range uc:UseCase ;
+  skos:definition "A Trigger must be specified as being for a Use Case or a Step Flow."@en ;
+  skos:prefLabel "is trigger for"@en ;
+.
+uc:requirementsList
+  a owl:ObjectProperty ;
+  rdfs:domain uc:UseCase ;
+  rdfs:range rdf:List ;
+  skos:definition "A Use Case may have mutiple Requirements associated with it, in an ordered list."@en ;
+  skos:prefLabel "requirements list"@en ;
+.
+<https://linked.data.gov.au/org/surround>
+  a sdo:Organization ;
+  sdo:name "SURROUND Australia Pty Ltd" ;
+  sdo:url "https://surroundaustralia.com"^^xsd:anyURI ;
+.
+<https://orcid.org/0000-0002-8742-7730>
+  a owl:NamedIndividual ;
+  a sdo:Person ;
+  sdo:affiliation <https://surroundaustralia.com> ;
+  sdo:email "nicholas.car@surroundaustralia.com"^^xsd:anyURI ;
+  sdo:jobTitle "Data Systems Architect" ;
+  sdo:name "Nicholas J. Car" ;
+.
+<https://orcid.org/0000-0003-3932-5614>
+  a owl:NamedIndividual ;
+  a sdo:Person ;
+  sdo:affiliation <https://surroundaustralia.com> ;
+  sdo:email "simon.opper@surroundaustralia.com"^^xsd:anyURI ;
+  sdo:jobTitle "Chief Data Scientist" ;
+  sdo:name "Simon J. Opper" ;
+.
