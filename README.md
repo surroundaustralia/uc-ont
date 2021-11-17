@@ -20,5 +20,5 @@ Ontology Author:
 
 **Nicholas J. Car**  
 *Data Systems Architect*  
-[SURROUND Australia Pty Ltd](http://surroundaustralia.com)
+[SURROUND Australia Pty Ltd](http://surroundaustralia.com)  
 <nicholas.car@surroundaustralia.com>
