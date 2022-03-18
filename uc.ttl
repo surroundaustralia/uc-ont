@@ -28,6 +28,7 @@ rdfs:member
   dcterms:provenance "Most UML details taken from Pilone & Pitman (2005) 'UML 2.0 in a nutshell'. O'Reilley."@en ;
   skos:definition "An OWL representation of UML's Use Case model."@en ;
   skos:prefLabel "Use Case Ontology"@en ;
+  owl:versionIRI uc:0.1.0 ;
 .
 uc:Actor
   a owl:Class ;
